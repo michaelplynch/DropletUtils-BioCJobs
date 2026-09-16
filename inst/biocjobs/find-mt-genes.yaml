@@ -1,0 +1,39 @@
+# BiocJobs job specification.
+# This file, together with scripts/find-mt-genes.R, is all
+# a package maintainer adds to make this analysis dispatchable.
+biocjobs: "1.0"
+name: find-mt-genes
+package: DropletUtils
+title: List mitochondrial genes
+tagline: identify mitochondrial gene names to prep for calculating percent MT
+description: >
+  Given a gene name prefix, identifies mitochondrial genes from a
+  SingleCellExperiment and outputs them to a plain text file.
+version: "1.0.0"
+license: MIT
+script: scripts/find-mt-genes.R
+depends: [LoomExperiment]
+
+inputs:
+  - name: loom_file
+    format: loom
+    label: Loom file
+    help: >
+      File containing single cell dataset, in loom format.
+
+outputs:
+  - name: outfile
+    format: txt
+    label: List of mitochondrial genes
+    help: >
+      Plain text file, with one gene listed per line.
+
+options:
+  - name: mt_prefix
+    type: string
+    default: "MT-"
+    required: true
+    label: Mitochondrial gene prefix
+    help: >
+      Prefix used to identify genes that are mitochondrial, out of rownames or
+      any rowData columns of the SingleCellExperiment object.
