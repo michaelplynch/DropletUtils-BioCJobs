@@ -13,13 +13,21 @@ suppressPackageStartupMessages(library(LoomExperiment))
 
 ## ---- inputs -------------------------------------------------------------
 
-stopifnot(!file.exists(params$loom_file)) # Unnecessary for Nextflow
+stopifnot(file.exists(params$loom_file)) # Unnecessary for Nextflow
 
 ## ---- task ---------------------------------------------------------------
 
 sce <- import(params$loom_file, format = "loom", type = "SingleCellLoomExperiment")
 
 mt_gene_ids <- rownames(sce)[startsWith(rownames(sce), params$mt_prefix)]
+
+if(length(mt_gene_ids) == 0){
+    for(i in seq_len(ncol(rowData(sce)))){
+        thesevals = rowData(sce)[[i]]
+        mt_gene_ids = rownames(sce)[startsWith(thesevals, params$mt_prefix)]
+        if(length(mt_gene_ids) > 0) break
+    }
+}
 
 ## ---- outputs ------------------------------------------------------------
 
