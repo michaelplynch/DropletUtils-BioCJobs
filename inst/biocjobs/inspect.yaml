@@ -1,0 +1,48 @@
+# BiocJobs job specification.
+# This file, together with scripts/read-10x-counts.R, is all
+# a package maintainer adds to make this analysis dispatchable.
+biocjobs: "1.0"
+name: inspect
+package: DropletUtils
+title: Inspect SingleCellExperiment object
+tagline: print summary of sce
+description: >
+  Prints summary of SingleCellExperiment object to summary.txt.
+version: "1.0.0"
+license: MIT
+script: scripts/inspect.R
+depends: [LoomExperiment]
+
+inputs:
+  - name: loom_file
+    format: loom
+    label: SingleCellLoomExperiment
+    help: >
+      SingleCellExperiment object in loom format.
+
+outputs:
+  - name: outfile
+    format: txt
+    label: SingleCellExperiment summary in .txt format.
+    help: >
+      Summary of SingleCellExperiment object printed to .txt file.
+
+options:
+
+resources:
+  cpus: 1
+  memory_gb: 4
+  disk_gb: 10
+
+citations:
+  - doi: 10.18129/B9.bioc.DropletUtils   # Bioconductor landing page
+
+tests:
+  - inputs:
+      loom_file: test-data/scle.loom
+    options:
+    outputs:
+      outfile:
+        file: test-data/summary.txt
+        compare: sim_size
+        delta: 3000
