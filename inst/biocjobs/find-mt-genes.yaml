@@ -35,5 +35,5 @@ options:
     required: true
     label: Mitochondrial gene prefix
     help: >
-      Prefix used to identify genes that are mitochondrial, out of rownames of
-      the SingleCellExperiment object.
+      Prefix used to identify genes that are mitochondrial, out of rownames or
+      any rowData columns of the SingleCellExperiment object.
