@@ -5,7 +5,7 @@
 ## time it returns, every value below is typed, validated and defaulted.
 
 ## Test command (R)
-## BiocJobs::runJob(BiocJobs::readJob("inst/biocjobs/find-mt-genes.yaml"), params = list(loom_file = "sce.loom", prefix = "MT-", outfile = "mt_genes.txt"))
+## BiocJobs::runJob(BiocJobs::readJob("inst/biocjobs/find-mt-genes.yaml"), params = list(loom_file = "sce.loom", mt_prefix = "MT-", outfile = "mt_genes.txt"))
 
 params <- BiocJobs::jobParams("DropletUtils", "find-mt-genes")
 
